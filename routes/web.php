@@ -31,3 +31,6 @@ Route::get('/random/min={min}&max={max}', 'TestController@random')
 
 Route::get('/generation/{age}', 'TestController@generation')
 ->where('age', '[1-9][0-9]?');
+
+Route::get('/index', 'TestController@index')->name('tickets');
+Route::get('/ticket/{id}', 'TestController@ticket')->name('ticket');

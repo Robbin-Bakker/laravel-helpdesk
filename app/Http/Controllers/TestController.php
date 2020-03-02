@@ -7,9 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 class TestController extends Controller
 {
-    public function hi($id){
-        return view('testparameter')->with('id', $id);
-    }
 
     public function generation($age){
         $currentYear = 2020;
