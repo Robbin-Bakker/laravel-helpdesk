@@ -40,4 +40,10 @@ class User extends Authenticatable
     public function role(){
         return $this->belongsTo('App/Role');
     }
+    public function submitted_tickets(){
+        return $this->hasMany('App/Ticket');
+    }
+    public function assigned_tickets(){
+        return $this->hasMany('App/Ticket');
+    }
 }
