@@ -11,7 +11,7 @@ class Ticket extends Model
         return $this->belongsTo('App/User', 'user_id');
     }
     public function assigned_users(){
-        return $this->hasMany('App/User');
+        return $this->belongsToMany('App/User');
     }
     public function status(){
         return $this->belongsTo('App/Status');
