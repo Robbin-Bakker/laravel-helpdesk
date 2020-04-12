@@ -46,4 +46,7 @@ class User extends Authenticatable
     public function assigned_tickets(){
         return $this->belongsToMany('App/Ticket');
     }
+    public function comments(){
+        return $this->hasMany('App/Comment');
+    }
 }
