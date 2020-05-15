@@ -34,3 +34,6 @@ Route::get('/generation/{age}', 'TestController@generation')
 
 Route::get('/index', 'TestController@index')->name('tickets');
 Route::get('/ticket/{id}', 'TestController@ticket')->name('ticket');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
