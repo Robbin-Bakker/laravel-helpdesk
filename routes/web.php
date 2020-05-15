@@ -15,25 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dit/is/een/test', function () {
-    return view('test')->with('variabele', config('database.default'));
-});
-
-Route::get('/param/{id}', function($id){
-    return view('testparameter')->with('id', $id);
-})->where('id', '[1-9][0-9]*');
-
-Route::get('/hi/{id}', 'TestController@hi')
-->where('id', '[1-9][0-9]*');
-
-Route::get('/random/min={min}&max={max}', 'TestController@random')
-->where(['min' => '[0-9]*', 'max' => '[0-9]*']);
-
-Route::get('/generation/{age}', 'TestController@generation')
-->where('age', '[1-9][0-9]?');
-
 Route::get('/index', 'TestController@index')->name('tickets');
 Route::get('/ticket/{id}', 'TestController@ticket')->name('ticket');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
