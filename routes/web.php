@@ -15,9 +15,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/index', 'TestController@index')->name('tickets');
-Route::get('/ticket/{id}', 'TestController@ticket')->name('ticket');
-
+// USER
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+// TICKETS
+Route::get('/ticket/create', 'TicketController@create')->name('ticket_create');
+
+Route::post('/ticket/save', 'TicketController@save')->name('ticket_save');
+
+Route::get('/ticket/index', 'TicketController@index')->name('ticket_index');
+
+Route::get('/ticket/{id}/show', 'TicketController@show')->name('ticket_show');
+
+Route::put('/ticket/{id}/update', 'TicketController@update')->name('ticket_update');
+
+Route::post('/ticket/{id}/comment/save', 'CommentController@save')->name('comment_save');
