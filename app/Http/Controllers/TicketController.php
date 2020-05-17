@@ -30,7 +30,7 @@ class TicketController extends Controller
      * return view with form to create ticket
      */
     public function create(){
-        
+        return view('ticket.create');
     }
     
     /**
