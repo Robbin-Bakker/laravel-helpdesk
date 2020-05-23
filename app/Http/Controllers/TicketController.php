@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Ticket;
+use App\Status;
+
 class TicketController extends Controller
 {
     /**
@@ -40,8 +43,24 @@ class TicketController extends Controller
      *    redirect to ticket_create with error message
      *    save ticket and redirect to ticket_index with succes message
      */
-    public function save(){
+    public function save(Request $request){
+        $request->validate([
+            'title'         => 'required|max:191',
+            'description'   => 'required',
+        ]);
         
+        $status = Status::where('name', Status::UNASSIGNED)->first();
+
+        $ticket = new Ticket();
+
+        $ticket->title = $request->title;
+        $ticket->description = $request->description;
+
+        $ticket->status()->associate($status);
+
+        $request->user()->submitted_tickets()->save($ticket);
+
+        return redirect()->route('ticket_index')->with('success', 'Your ticket is saved...');
     }
     
     /**

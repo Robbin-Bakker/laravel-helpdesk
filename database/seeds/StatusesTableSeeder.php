@@ -11,11 +11,18 @@ class StatusesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+        // unassigned
+        DB::table('statuses')->insert([
+            'name' => \App\Status::UNASSIGNED,
+            'description' => 'ticket is nog niet toegewezen',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
         // firstline
         DB::table('statuses')->insert([
             'name' => \App\Status::FIRST_LINE,
-            'description' => \App\Status::FIRST_LINE_DESC,
+            'description' => 'ticket wacht op een eerstelijns medewerker',
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -23,7 +30,7 @@ class StatusesTableSeeder extends Seeder
         // firstline assigned
         DB::table('statuses')->insert([
             'name' => \App\Status::FIRST_LINE_ASSIGNED,
-            'description' => \App\Status::FIRST_LINE_ASSIGNED_DESC,
+            'description' => 'ticket is toegewezen aan eerstelijns medewerker',
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -31,7 +38,7 @@ class StatusesTableSeeder extends Seeder
         // secondline
         DB::table('statuses')->insert([
             'name' => \App\Status::SECOND_LINE,
-            'description' => \App\Status::SECOND_LINE_DESC,
+            'description' => 'ticket wacht op een tweedelijns medewerker',
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -39,7 +46,7 @@ class StatusesTableSeeder extends Seeder
         // secondline assigned
         DB::table('statuses')->insert([
             'name' => \App\Status::SECOND_LINE_ASSIGNED,
-            'description' => \App\Status::SECOND_LINE_ASSIGNED_DESC,
+            'description' => 'ticket is toegewezen aan tweedelijns medewerker',
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -47,7 +54,7 @@ class StatusesTableSeeder extends Seeder
         // closed
         DB::table('statuses')->insert([
             'name' => \App\Status::CLOSED,
-            'description' => \App\Status::CLOSED_DESC,
+            'description' => 'ticket is afgehandeld',
             'created_at' => now(),
             'updated_at' => now()
         ]);
