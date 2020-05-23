@@ -31,3 +31,7 @@ Route::get('/ticket/{id}/show', 'TicketController@show')->name('ticket_show');
 Route::put('/ticket/{id}/update', 'TicketController@update')->name('ticket_update');
 
 Route::post('/ticket/{id}/comment/save', 'CommentController@save')->name('comment_save');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

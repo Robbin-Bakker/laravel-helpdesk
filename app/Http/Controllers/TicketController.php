@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Ticket;
 use App\Status;
@@ -24,7 +25,9 @@ class TicketController extends Controller
      * 
      */
     public function index(){
-        
+        $tickets = Auth::user()->submitted_tickets()->orderBy('created_at', 'DESC')->get();
+
+        return view('ticket.index', ['tickets' => $tickets]);
     }
     
     /**
