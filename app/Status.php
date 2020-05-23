@@ -19,7 +19,7 @@ class Status extends Model
     const CLOSED = 'afgehandeld';
     
     public function tickets(){
-        return $this->hasMany('App/Ticket');
+        return $this->hasMany('App\Ticket');
     }
 
 }

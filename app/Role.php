@@ -13,7 +13,7 @@ class Role extends Model
     const SECOND_HELPER = 'tweedelijns medewerker';
     
     public function users(){
-        return $this->hasMany('App/User');
+        return $this->hasMany('App\User');
     }
 
 }
