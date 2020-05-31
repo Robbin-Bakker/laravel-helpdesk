@@ -52,7 +52,7 @@ class TicketController extends Controller
             'description'   => 'required',
         ]);
         
-        $status = Status::where('name', Status::UNASSIGNED)->first();
+        $status = Status::where('name', Status::FIRST_LINE)->first();
 
         $ticket = new Ticket();
 

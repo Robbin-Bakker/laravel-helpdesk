@@ -11,14 +11,6 @@ class StatusesTableSeeder extends Seeder
      */
     public function run()
     {
-        // unassigned
-        DB::table('statuses')->insert([
-            'name' => \App\Status::UNASSIGNED,
-            'description' => 'ticket is nog niet toegewezen',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
         // firstline
         DB::table('statuses')->insert([
             'name' => \App\Status::FIRST_LINE,

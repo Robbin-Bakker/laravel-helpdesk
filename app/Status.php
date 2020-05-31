@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Status extends Model
 {
-    const UNASSIGNED = 'niet_toegewezen';
-
     const FIRST_LINE = 'eerstelijn';
 
     const FIRST_LINE_ASSIGNED = 'eerstelijn_toegewezen';
