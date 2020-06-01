@@ -5,7 +5,16 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('New ticket') }}</div>
+                <div class="card-header">
+                    <div class="card-title">
+                        {{ __('New ticket') }}
+                    </div>
+                    @if(session('fail'))
+                        <h6 class="card-subtitle alert alert-danger">
+                            {{ session('fail') }}
+                        </h6>
+                    @endif
+                </div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('ticket_save') }}">

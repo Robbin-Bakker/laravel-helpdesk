@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use Validator;
+
 use App\Ticket;
 use App\Status;
 
@@ -47,10 +49,22 @@ class TicketController extends Controller
      *    save ticket and redirect to ticket_index with succes message
      */
     public function save(Request $request){
-        $request->validate([
-            'title'         => 'required|max:191',
-            'description'   => 'required',
-        ]);
+        
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'title'         => 'required|max:191',
+                'description'   => 'required',
+            ]
+        );
+
+        if($validator->fails()){
+            return redirect()
+                ->route('ticket_create')
+                ->withErrors($validator)
+                ->withInput()
+                ->with('fail', 'Ticket niet opgeslagen');
+        }
         
         $status = Status::where('name', Status::FIRST_LINE)->first();
 
@@ -63,7 +77,7 @@ class TicketController extends Controller
 
         $request->user()->submitted_tickets()->save($ticket);
 
-        return redirect()->route('ticket_index')->with('success', 'Your ticket is saved...');
+        return redirect()->route('ticket_index')->with('success', 'Ticket succesvol opgeslagen');
     }
     
     /**

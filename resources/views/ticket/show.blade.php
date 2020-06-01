@@ -24,12 +24,29 @@
                     Submitted on <em>{{ $ticket->created_at->toFormattedDateString() }}</em> by {{ $ticket->submitting_user->name }}
                 </div>
 
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title" id="comments">
+                            {{ __('Comments') }}
+                        </h5>
+                        @if(session('success'))
+                            <h6 class="card-subtitle alert alert-success">
+                                {{ session('success') }}
+                            </h6>
+                        @elseif(session('fail'))
+                            <h6 class="card-subtitle alert alert-danger">
+                                {{ session('fail') }}
+                            </h6>
+                        @endif
+                    </div>
+                </div>
+
                 @forelse ($ticket->comments as $comment)
 
                     <div class="card">
                         <div class="card-body">
                             <div class="card-text">
-                                $comment->contents
+                                {{ $comment->contents }}
                             </div>
                         </div>
                         <div class="card-footer">
@@ -50,16 +67,16 @@
                 @endforelse
 
                 <div class="card">
-                    <form method="POST" action="{{ route('comment_save', ['id' => $ticket]) }}">
+                    <form id="form" method="POST" action="{{ route('comment_save', ['id' => $ticket]) }}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="comment" class="col-md-4 col-form-label text-md-right">{{ __('Comment') }}</label>
+                            <label for="contents" class="col-md-4 col-form-label text-md-right">{{ __('Contents') }}</label>
 
                             <div class="col-md-6">
-                                <textarea id="comment" class="form-control @error('comment') is-invalid @enderror" name="comment" rows="3" cols="40">{{ old('comment') }}</textarea>
+                                <textarea id="contents" class="form-control @error('contents') is-invalid @enderror" name="contents" rows="3" cols="40">{{ old('contents') }}</textarea>
 
-                                @error('comment')
+                                @error('contents')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

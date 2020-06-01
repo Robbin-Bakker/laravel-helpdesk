@@ -9,14 +9,12 @@
                     <h3 class="card-title">
                         All Tickets
                     </h3>
+                    @if(session('success'))
+                        <h6 class="card-subtitle alert alert-success">
+                            {{ session('success') }}
+                        </h6>
+                    @endif
                 </div>
-                @if(session('success'))
-                    <div class="card-body">
-                        <div class="alert alert-succes">
-                            <p>{{ session('success') }}</p>
-                        </div>
-                    </div>
-                @endif
                 @forelse ($tickets as $ticket)
                     <div class="card">
 
