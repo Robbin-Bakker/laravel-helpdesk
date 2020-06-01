@@ -5,6 +5,8 @@ namespace App\Policies;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
+use App\Ticket;
+
 class TicketPolicy
 {
     use HandlesAuthorization;
@@ -17,5 +19,9 @@ class TicketPolicy
     public function __construct()
     {
         //
+    }
+
+    public function show(User $user, Ticket $ticket){
+        return $user->id == $ticket->user_id;
     }
 }
