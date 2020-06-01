@@ -26,9 +26,11 @@
                         </div>
 
                         <div class="card-body">
-                            <h5 class="card-title">
-                                {{ $ticket->title }}
-                            </h5>
+                            <a href="{{ route('ticket_show', ['ticket' => $ticket]) }}">
+                                <h5 class="card-title">
+                                    {{ $ticket->title }}
+                                </h5>
+                            </a>
                             <p class="card-text">
                                 {!! nl2br(e($ticket->description)) !!}
                             </p>

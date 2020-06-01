@@ -71,8 +71,8 @@ class TicketController extends Controller
      * 
      * @param int $id
      */
-    public function show($id){
-        
+    public function show(Ticket $ticket){
+        return view('ticket.show', ['ticket' => $ticket]);
     }
     
     /**
