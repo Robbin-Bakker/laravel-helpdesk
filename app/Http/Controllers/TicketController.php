@@ -51,6 +51,8 @@ class TicketController extends Controller
      */
     public function save(Request $request){
         
+        $this->authorize('create', Ticket::class);
+        
         $validator = Validator::make(
             $request->all(),
             [
