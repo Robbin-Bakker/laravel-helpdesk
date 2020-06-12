@@ -38,6 +38,7 @@ class TicketController extends Controller
      * return view with form to create ticket
      */
     public function create(){
+        $this->authorize('create', Ticket::class);
         return view('ticket.create');
     }
     

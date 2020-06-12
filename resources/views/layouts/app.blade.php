@@ -38,9 +38,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('ticket_index') }}">{{ __('My tickets') }}</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('ticket_create') }}">{{ __('New ticket') }}</a>
-                            </li>
+                            @if( Auth::user()->can('create', App\Ticket::class) )
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('ticket_create') }}">{{ __('New ticket') }}</a>
+                                </li>
+                            @endif
                         @endauth
                     </ul>
 
