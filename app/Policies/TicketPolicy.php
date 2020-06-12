@@ -22,6 +22,6 @@ class TicketPolicy
     }
 
     public function show(User $user, Ticket $ticket){
-        return $user->id == $ticket->user_id;
+        return $user->is($ticket->submitting_user);
     }
 }
