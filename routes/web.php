@@ -30,4 +30,4 @@ Route::get('/ticket/{ticket}/show', 'TicketController@show')->name('ticket_show'
 
 Route::put('/ticket/{id}/update', 'TicketController@update')->name('ticket_update');
 
-Route::post('/ticket/{id}/comment/save', 'CommentController@save')->name('comment_save');
+Route::post('/ticket/{ticket}/comment/save', 'CommentController@save')->name('comment_save');

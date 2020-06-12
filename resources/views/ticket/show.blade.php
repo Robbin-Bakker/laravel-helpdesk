@@ -67,7 +67,7 @@
                 @endforelse
 
                 <div class="card">
-                    <form id="form" method="POST" action="{{ route('comment_save', ['id' => $ticket]) }}">
+                    <form id="form" method="POST" action="{{ route('comment_save', ['ticket' => $ticket]) }}">
                         @csrf
 
                         <div class="form-group row">
