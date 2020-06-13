@@ -26,7 +26,8 @@ class TicketPolicy
      * users can only view roles that they created
      */
     public function show(User $user, Ticket $ticket){
-        return $user->is($ticket->submitting_user);
+        $roleName = $user->role->name;
+        return ( $user->is($ticket->submitting_user) || $roleName === Role::FIRST_HELPER || $roleName === Role::SECOND_HELPER );
     }
 
     /**
@@ -38,6 +39,6 @@ class TicketPolicy
 
     public function assign(User $user){
         $roleName = $user->role->name;
-        return ($roleName === Role::FIRST_HELPER || $roleName === Role::SECOND_HELPER);
+        return ( $roleName === Role::FIRST_HELPER || $roleName === Role::SECOND_HELPER );
     }
 }
