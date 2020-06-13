@@ -35,14 +35,19 @@
                     <ul class="navbar-nav mr-auto">
                         @auth
                             <!-- menu -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('ticket_index') }}">{{ __('My tickets') }}</a>
-                            </li>
-                            @if( Auth::user()->can('create', App\Ticket::class) )
+                            @can( 'create', App\Ticket::class )
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('ticket_index') }}">{{ __('My tickets') }}</a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('ticket_create') }}">{{ __('New ticket') }}</a>
                                 </li>
-                            @endif
+                            @endcan
+                            @can( 'assign', App\Ticket::class )
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('ticket_index_helpdesk') }}">{{ __('Tickets') }}</a>
+                                </li>
+                            @endcan
                         @endauth
                     </ul>
 

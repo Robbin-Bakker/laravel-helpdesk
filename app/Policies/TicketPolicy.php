@@ -35,4 +35,9 @@ class TicketPolicy
     public function create(User $user){
         return $user->role->name === Role::CUSTOMER;
     }
+
+    public function assign(User $user){
+        $roleName = $user->role->name;
+        return ($roleName === Role::FIRST_HELPER || $roleName === Role::SECOND_HELPER);
+    }
 }

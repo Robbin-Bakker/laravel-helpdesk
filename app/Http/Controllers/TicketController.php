@@ -9,6 +9,7 @@ use Validator;
 
 use App\Ticket;
 use App\Status;
+use App\Role;
 
 class TicketController extends Controller
 {
@@ -27,9 +28,44 @@ class TicketController extends Controller
      * 
      */
     public function index(){
+        $this->authorize('create', Ticket::class);
+
         $tickets = Auth::user()->submitted_tickets()->orderBy('created_at', 'DESC')->get();
 
         return view('ticket.index', ['tickets' => $tickets]);
+    }
+
+    /**
+     * Show all tickets for helpdesk
+     * 
+     */
+    public function index_helpdesk(){
+        $this->authorize('assign', Ticket::class);
+
+        $rolename = Auth::user()->role->name;
+
+        if($rolename === Role::FIRST_HELPER){
+
+            $assigned_tickets = Auth::user()->assigned_tickets;
+
+            $status = Status::where('name', Status::FIRST_LINE)->first();
+            
+            $unassigned_tickets = Ticket::where('status_id', $status->id)->orderBy('created_at', 'DESC')->get();
+
+        } else {
+
+            $assigned_tickets = Auth::user()->assigned_tickets;
+
+            $status = Status::where('name', Status::SECOND_LINE)->first();
+
+            $unassigned_tickets = Ticket::where('status_id', $status->id)->orderBy('created_at', 'DESC')->get();
+
+        }
+
+        return view('ticket.index_helpdesk', [
+            'assigned_tickets' => $assigned_tickets,
+            'unassigned_tickets' => $unassigned_tickets
+            ]);
     }
     
     /**
