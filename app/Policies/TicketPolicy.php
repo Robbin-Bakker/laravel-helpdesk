@@ -41,4 +41,8 @@ class TicketPolicy
         $roleName = $user->role->name;
         return ( $roleName === Role::FIRST_HELPER || $roleName === Role::SECOND_HELPER );
     }
+
+    public function comment(User $user, Ticket $ticket){
+        return ( ($user->is($ticket->submitting_user) || $user->assigned_tickets->contains($ticket) ) && $ticket->isOpen() );
+    }
 }

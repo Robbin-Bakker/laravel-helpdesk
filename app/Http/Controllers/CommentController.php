@@ -34,6 +34,8 @@ class CommentController extends Controller
     public function save(Request $request, Ticket $ticket){
         $ticket = Ticket::findOrFail($ticket->id);
 
+        $this->authorize('comment', $ticket);
+
         $validator = Validator::make(
             $request->all(),
             [

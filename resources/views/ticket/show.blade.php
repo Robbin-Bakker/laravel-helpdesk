@@ -67,31 +67,42 @@
                 @endforelse
 
                 <div class="card">
-                    <form id="form" method="POST" action="{{ route('comment_save', ['ticket' => $ticket]) }}">
-                        @csrf
+                    @can( 'comment', $ticket )
+                        <form id="form" method="POST" action="{{ route('comment_save', ['ticket' => $ticket]) }}">
+                            @csrf
 
-                        <div class="form-group row">
-                            <label for="contents" class="col-md-4 col-form-label text-md-right">{{ __('Contents') }}</label>
+                            <div class="form-group row">
+                                <label for="contents" class="col-md-4 col-form-label text-md-right">{{ __('Contents') }}</label>
 
-                            <div class="col-md-6">
-                                <textarea id="contents" class="form-control @error('contents') is-invalid @enderror" name="contents" rows="3" cols="40">{{ old('contents') }}</textarea>
+                                <div class="col-md-6">
+                                    <textarea id="contents" class="form-control @error('contents') is-invalid @enderror" name="contents" rows="3" cols="40">{{ old('contents') }}</textarea>
 
-                                @error('contents')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                    @error('contents')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Save') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    @else
+                        <div class="card-header">
+                            <div class="card-title">
+                                {{ __('You are not allowed to comment') }}
+                            </div>
+                            <div class="card-subtitle">
+                                {{ __('Only the submitting user or assigned assistant can comment') }}
                             </div>
                         </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Save') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    @endcan
                 </div>
 
             </div>

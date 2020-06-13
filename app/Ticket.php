@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Status;
+
 class Ticket extends Model
 {
 
@@ -18,6 +20,10 @@ class Ticket extends Model
     }
     public function comments(){
         return $this->hasMany('App\Comment');
+    }
+
+    public function isOpen(){
+        return $this->status->name !== Status::CLOSED;
     }
     
 }
