@@ -7,6 +7,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 
 use App\Ticket;
 use App\Role;
+use App\Status;
 
 class TicketPolicy
 {
@@ -48,5 +49,15 @@ class TicketPolicy
 
     public function close(User $user, Ticket $ticket){
         return ( ($user->is($ticket->submitting_user) || $user->assigned_tickets->contains($ticket) ) && $ticket->isOpen() );
+    }
+
+    public function claim(User $user, Ticket $ticket){
+        $status = $ticket->status;
+        $roleName = $user->role->name;
+
+        $isFirst = $status->name === Status::FIRST_LINE && $roleName === Role::FIRST_HELPER;
+        $isSecond = $status->name === Status::SECOND_LINE && $roleName === Role::SECOND_HELPER;
+
+        return $isFirst || $isSecond;
     }
 }

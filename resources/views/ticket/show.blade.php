@@ -24,6 +24,15 @@
                             </form>
                         </div>
                     @endcan
+                    @can( 'claim', $ticket )
+                        <div class="card-text">
+                            <form action="{{ route('ticket_claim', ['ticket' => $ticket]) }}" method="POST">
+                                @method('PUT')
+                                @csrf
+                                <button type="submit">{{ __('Claim ticket') }}</button>
+                            </form>
+                        </div>
+                    @endcan
                     <div class="card-text">
                         Description: {!! nl2br(e($ticket->description)) !!}
                     </div>

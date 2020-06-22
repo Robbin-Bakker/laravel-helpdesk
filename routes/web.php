@@ -40,6 +40,9 @@ Route::get('/ticket/{ticket}/show', 'TicketController@show')
 Route::put('/ticket/{ticket}/close', 'TicketController@close')
     ->name('ticket_close');
 
+Route::put('/ticket/{ticket}/claim', 'TicketController@claim')
+    ->name('ticket_claim');
+
 // COMMENTS
 Route::post('/ticket/{ticket}/comment/save', 'CommentController@save')
     ->name('comment_save');

@@ -129,13 +129,36 @@ class TicketController extends Controller
         // moet ik hier nog een keer de findorfail uitvoeren om te checken of de ticket nog steeds bestaat?
         $this->authorize('close', $ticket);
 
-        $status = Status::where('name', Status::CLOSED)->first();
+        $newStatus = Status::where('name', Status::CLOSED)->first();
 
-        $ticket->status()->associate($status);
+        $ticket->status()->associate($newStatus);
 
         $ticket->save();
 
         return redirect()->back()->with('success', __('Ticket succesvol gesloten.'));
+    }
+
+    public function claim(Ticket $ticket){
+
+        $this->authorize('claim', $ticket);
+
+        if($ticket->status->name === Status::FIRST_LINE){
+
+            $newStatus = Status::where('name', Status::FIRST_LINE_ASSIGNED)->first();
+
+        } else {
+
+            $newStatus = Status::where('name', Status::SECOND_LINE_ASSIGNED)->first();
+
+        }
+
+        $ticket->status()->associate($newStatus);
+
+        $ticket->save();
+
+        Auth::user()->assigned_tickets()->attach($ticket);
+        
+        return redirect()->back()->with('success', __('Ticket succesvol geclaimed.'));
     }
 
 }
