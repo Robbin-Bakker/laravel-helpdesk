@@ -124,14 +124,5 @@ class TicketController extends Controller
         $this->authorize('show', $ticket);
         return view('ticket.show', ['ticket' => $ticket]);
     }
-    
-    /**
-     * Update single ticket and reditect to ticket_index
-     * 
-     * @param int $id
-     */
-    public function update($id){
-        
-    }
 
 }
