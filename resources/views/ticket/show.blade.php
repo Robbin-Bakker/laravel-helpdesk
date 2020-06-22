@@ -15,6 +15,15 @@
                 </div>
 
                 <div class="card-body">
+                    @can( 'close', $ticket )
+                        <div class="card-text">
+                            <form action="{{ route('ticket_close', ['ticket' => $ticket]) }}" method="POST">
+                                @method('PUT')
+                                @csrf
+                                <button type="submit">{{ __('Sluit ticket') }}</button>
+                            </form>
+                        </div>
+                    @endcan
                     <div class="card-text">
                         Description: {!! nl2br(e($ticket->description)) !!}
                     </div>

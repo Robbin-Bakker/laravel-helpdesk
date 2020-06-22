@@ -112,7 +112,7 @@ class TicketController extends Controller
 
         $request->user()->submitted_tickets()->save($ticket);
 
-        return redirect()->route('ticket_index')->with('success', 'Ticket succesvol opgeslagen');
+        return redirect()->route('ticket_index')->with('success', __('Ticket succesvol opgeslagen.'));
     }
     
     /**
@@ -123,6 +123,19 @@ class TicketController extends Controller
     public function show(Ticket $ticket){
         $this->authorize('show', $ticket);
         return view('ticket.show', ['ticket' => $ticket]);
+    }
+
+    public function close(Ticket $ticket){
+        // moet ik hier nog een keer de findorfail uitvoeren om te checken of de ticket nog steeds bestaat?
+        $this->authorize('close', $ticket);
+
+        $status = Status::where('name', Status::CLOSED)->first();
+
+        $ticket->status()->associate($status);
+
+        $ticket->save();
+
+        return redirect()->back()->with('success', __('Ticket succesvol gesloten.'));
     }
 
 }

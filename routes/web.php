@@ -36,5 +36,10 @@ Route::get('/ticket/index_helpdesk', 'TicketController@index_helpdesk')
 Route::get('/ticket/{ticket}/show', 'TicketController@show')
     ->name('ticket_show');
 
+// TICKET UPDATING
+Route::put('/ticket/{ticket}/close', 'TicketController@close')
+    ->name('ticket_close');
+
+// COMMENTS
 Route::post('/ticket/{ticket}/comment/save', 'CommentController@save')
     ->name('comment_save');
