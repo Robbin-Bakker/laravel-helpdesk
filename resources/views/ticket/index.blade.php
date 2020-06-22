@@ -24,17 +24,11 @@
                         </div>
 
                         <div class="card-body">
-                            @can( 'show', $ticket )
-                                <a href="{{ route('ticket_show', ['ticket' => $ticket]) }}">
-                                    <h5 class="card-title">
-                                        {{ $ticket->title }}
-                                    </h5>
-                                </a>
-                            @else
+                            <a href="{{ route('ticket_show', ['ticket' => $ticket]) }}">
                                 <h5 class="card-title">
                                     {{ $ticket->title }}
                                 </h5>
-                            @endcan
+                            </a>
                             <p class="card-text">
                                 {!! nl2br(e($ticket->description)) !!}
                             </p>
