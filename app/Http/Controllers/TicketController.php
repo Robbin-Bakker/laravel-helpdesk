@@ -46,21 +46,17 @@ class TicketController extends Controller
 
         if($rolename === Role::FIRST_HELPER){
 
-            $assigned_tickets = Auth::user()->assigned_tickets;
-
             $status = Status::where('name', Status::FIRST_LINE)->first();
-            
-            $unassigned_tickets = Ticket::where('status_id', $status->id)->orderBy('created_at', 'DESC')->get();
 
         } else {
 
-            $assigned_tickets = Auth::user()->assigned_tickets;
-
             $status = Status::where('name', Status::SECOND_LINE)->first();
 
-            $unassigned_tickets = Ticket::where('status_id', $status->id)->orderBy('created_at', 'DESC')->get();
-
         }
+
+        $assigned_tickets = Auth::user()->assigned_tickets;
+
+        $unassigned_tickets = $status->tickets->sortByDesc('created_at');
 
         return view('ticket.index_helpdesk', [
             'assigned_tickets' => $assigned_tickets,
