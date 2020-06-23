@@ -158,7 +158,30 @@ class TicketController extends Controller
 
         Auth::user()->assigned_tickets()->attach($ticket);
         
-        return redirect()->back()->with('success', __('Ticket succesvol geclaimed.'));
+        return redirect()->back()->with('success', __('Ticket succesvol geclaimd.'));
+    }
+
+    public function free(Ticket $ticket){
+
+        $this->authorize('free', $ticket);
+
+        if($ticket->status->name === Status::FIRST_LINE_ASSIGNED){
+
+            $newStatus = Status::where('name', Status::FIRST_LINE)->first();
+
+        } else {
+
+            $newStatus = Status::where('name', Status::SECOND_LINE)->first();
+
+        }
+
+        $ticket->status()->associate($newStatus);
+
+        $ticket->save();
+
+        Auth::user()->assigned_tickets()->detach($ticket);
+        
+        return redirect()->back()->with('success', __('Ticket claim succesvol ingetrokken.'));
     }
 
 }

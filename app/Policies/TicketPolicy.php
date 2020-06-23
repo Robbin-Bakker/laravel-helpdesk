@@ -60,4 +60,14 @@ class TicketPolicy
 
         return $isFirst || $isSecond;
     }
+
+    public function free(User $user, Ticket $ticket){
+        $statusName = $ticket->status->name;
+        $roleName = $user->role->name;
+
+        $isFirst = $statusName === Status::FIRST_LINE_ASSIGNED && $roleName === Role::FIRST_HELPER;
+        $isSecond = $statusName === Status::SECOND_LINE_ASSIGNED && $roleName === Role::SECOND_HELPER;
+
+        return ($isFirst || $isSecond) && $user->assigned_tickets->contains($ticket);
+    }
 }

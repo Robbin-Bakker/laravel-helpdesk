@@ -12,27 +12,30 @@
                     <div class="card-subtitle">
                         Status: {{ $ticket->status->description }}
                     </div>
-                </div>
-
-                <div class="card-body">
                     @can( 'close', $ticket )
-                        <div class="card-text">
-                            <form action="{{ route('ticket_close', ['ticket' => $ticket]) }}" method="POST">
+                            <form class="d-inline" action="{{ route('ticket_close', ['ticket' => $ticket]) }}" method="POST">
                                 @method('PUT')
                                 @csrf
                                 <button type="submit">{{ __('Sluit ticket') }}</button>
                             </form>
-                        </div>
                     @endcan
                     @can( 'claim', $ticket )
-                        <div class="card-text">
-                            <form action="{{ route('ticket_claim', ['ticket' => $ticket]) }}" method="POST">
+                            <form class="d-inline" action="{{ route('ticket_claim', ['ticket' => $ticket]) }}" method="POST">
                                 @method('PUT')
                                 @csrf
                                 <button type="submit">{{ __('Claim ticket') }}</button>
                             </form>
-                        </div>
                     @endcan
+                    @can( 'free', $ticket )
+                            <form class="d-inline" action="{{ route('ticket_free', ['ticket' => $ticket]) }}" method="POST">
+                                @method('PUT')
+                                @csrf
+                                <button type="submit">{{ __('Trek claim in') }}</button>
+                            </form>
+                    @endcan
+                </div>
+
+                <div class="card-body">
                     <div class="card-text">
                         Description: {!! nl2br(e($ticket->description)) !!}
                     </div>
