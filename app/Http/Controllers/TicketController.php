@@ -184,4 +184,32 @@ class TicketController extends Controller
         return redirect()->back()->with('success', __('Ticket claim succesvol ingetrokken.'));
     }
 
+    public function escalate(Ticket $ticket){
+
+        $this->authorize('escalate', $ticket);
+
+        $newStatus = Status::where('name', Status::SECOND_LINE)->first();
+
+        $ticket->status()->associate($newStatus);
+
+        $ticket->save();
+        
+        return redirect()->back()->with('success', __('Ticket succesvol geescaleerd.'));
+    }
+
+    public function deescalate(Ticket $ticket){
+
+        $this->authorize('deescalate', $ticket);
+
+        $newStatus = Status::where('name', Status::FIRST_LINE_ASSIGNED)->first();
+
+        $ticket->status()->associate($newStatus);
+
+        $ticket->save();
+
+        Auth::user()->assigned_tickets()->detach($ticket);
+        
+        return redirect()->back()->with('success', __('Ticket succesvol gedeescaleerd.'));
+    }
+
 }

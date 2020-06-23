@@ -46,6 +46,13 @@ Route::put('/ticket/{ticket}/claim', 'TicketController@claim')
 Route::put('/ticket/{ticket}/free', 'TicketController@free')
     ->name('ticket_free');
 
+// Klopt het dat close, escalate en deescalate eigenlijk patch requests moeten zijn?
+Route::put('/ticket/{ticket}/escalate', 'TicketController@escalate')
+    ->name('ticket_escalate');
+
+Route::put('/ticket/{ticket}/deescalate', 'TicketController@deescalate')
+    ->name('ticket_deescalate');
+
 // COMMENTS
 Route::post('/ticket/{ticket}/comment/save', 'CommentController@save')
     ->name('comment_save');

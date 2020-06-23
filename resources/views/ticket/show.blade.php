@@ -16,14 +16,14 @@
                             <form class="d-inline" action="{{ route('ticket_close', ['ticket' => $ticket]) }}" method="POST">
                                 @method('PUT')
                                 @csrf
-                                <button type="submit">{{ __('Sluit ticket') }}</button>
+                                <button type="submit">{{ __('Sluit') }}</button>
                             </form>
                     @endcan
                     @can( 'claim', $ticket )
                             <form class="d-inline" action="{{ route('ticket_claim', ['ticket' => $ticket]) }}" method="POST">
                                 @method('PUT')
                                 @csrf
-                                <button type="submit">{{ __('Claim ticket') }}</button>
+                                <button type="submit">{{ __('Claim') }}</button>
                             </form>
                     @endcan
                     @can( 'free', $ticket )
@@ -31,6 +31,20 @@
                                 @method('PUT')
                                 @csrf
                                 <button type="submit">{{ __('Trek claim in') }}</button>
+                            </form>
+                    @endcan
+                    @can( 'escalate', $ticket )
+                            <form class="d-inline" action="{{ route('ticket_escalate', ['ticket' => $ticket]) }}" method="POST">
+                                @method('PUT')
+                                @csrf
+                                <button type="submit">{{ __('Escaleer') }}</button>
+                            </form>
+                    @endcan
+                    @can( 'deescalate', $ticket )
+                            <form class="d-inline" action="{{ route('ticket_deescalate', ['ticket' => $ticket]) }}" method="POST">
+                                @method('PUT')
+                                @csrf
+                                <button type="submit">{{ __('Deescaleer') }}</button>
                             </form>
                     @endcan
                 </div>

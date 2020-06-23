@@ -70,4 +70,16 @@ class TicketPolicy
 
         return ($isFirst || $isSecond) && $user->assigned_tickets->contains($ticket);
     }
+
+    public function escalate(User $user, Ticket $ticket){
+        $isFirst = $ticket->status->name === Status::FIRST_LINE_ASSIGNED && $user->role->name === Role::FIRST_HELPER;
+
+        return $isFirst && $user->assigned_tickets->contains($ticket);
+    }
+
+    public function deescalate(User $user, Ticket $ticket){
+        $isSecond = $ticket->status->name === Status::SECOND_LINE_ASSIGNED && $user->role->name === Role::SECOND_HELPER;
+
+        return $isSecond && $user->assigned_tickets->contains($ticket);
+    }
 }
