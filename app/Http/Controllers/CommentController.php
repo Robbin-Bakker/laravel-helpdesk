@@ -32,7 +32,6 @@ class CommentController extends Controller
      * @param int $ticket_id
      */
     public function save(Request $request, Ticket $ticket){
-        $ticket = Ticket::findOrFail($ticket->id);
 
         $this->authorize('comment', $ticket);
 

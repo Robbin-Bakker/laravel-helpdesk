@@ -52,11 +52,11 @@ class TicketPolicy
     }
 
     public function claim(User $user, Ticket $ticket){
-        $status = $ticket->status;
+        $statusName = $ticket->status->name;
         $roleName = $user->role->name;
 
-        $isFirst = $status->name === Status::FIRST_LINE && $roleName === Role::FIRST_HELPER;
-        $isSecond = $status->name === Status::SECOND_LINE && $roleName === Role::SECOND_HELPER;
+        $isFirst = $statusName === Status::FIRST_LINE && $roleName === Role::FIRST_HELPER;
+        $isSecond = $statusName === Status::SECOND_LINE && $roleName === Role::SECOND_HELPER;
 
         return $isFirst || $isSecond;
     }

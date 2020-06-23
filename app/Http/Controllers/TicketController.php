@@ -126,7 +126,7 @@ class TicketController extends Controller
     }
 
     public function close(Ticket $ticket){
-        // moet ik hier nog een keer de findorfail uitvoeren om te checken of de ticket nog steeds bestaat?
+
         $this->authorize('close', $ticket);
 
         $newStatus = Status::where('name', Status::CLOSED)->first();
