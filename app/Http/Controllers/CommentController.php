@@ -46,7 +46,7 @@ class CommentController extends Controller
                 ->route('ticket_show', ['ticket' => $ticket, '#form'])
                 ->withErrors($validator)
                 ->withInput()
-                ->with('fail', 'Reactie niet verzonden');
+                ->with('fail', 'Reaction not submitted.');
         }
 
         $comment = new Comment();
@@ -57,7 +57,7 @@ class CommentController extends Controller
 
         return redirect()
             ->route('ticket_show', ['ticket' => $ticket, '#comments'])
-            ->with('success', 'Reactie succesvol verzonden');
+            ->with('success', 'Reaction successfully submitted.');
     }
 
 }

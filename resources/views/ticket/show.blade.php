@@ -13,39 +13,45 @@
                         Status: {{ $ticket->status->description }}
                     </div>
                     @can( 'close', $ticket )
-                            <form class="d-inline" action="{{ route('ticket_close', ['ticket' => $ticket]) }}" method="POST">
-                                @method('PUT')
-                                @csrf
-                                <button type="submit">{{ __('Sluit') }}</button>
-                            </form>
+                        <form class="d-inline" action="{{ route('ticket_close', ['ticket' => $ticket]) }}" method="POST">
+                            @method('PUT')
+                            @csrf
+                            <button type="submit">{{ __('Close') }}</button>
+                        </form>
                     @endcan
                     @can( 'claim', $ticket )
-                            <form class="d-inline" action="{{ route('ticket_claim', ['ticket' => $ticket]) }}" method="POST">
-                                @method('PUT')
-                                @csrf
-                                <button type="submit">{{ __('Claim') }}</button>
-                            </form>
+                        <form class="d-inline" action="{{ route('ticket_claim', ['ticket' => $ticket]) }}" method="POST">
+                            @method('PUT')
+                            @csrf
+                            <button type="submit">{{ __('Claim') }}</button>
+                        </form>
                     @endcan
                     @can( 'free', $ticket )
-                            <form class="d-inline" action="{{ route('ticket_free', ['ticket' => $ticket]) }}" method="POST">
-                                @method('PUT')
-                                @csrf
-                                <button type="submit">{{ __('Trek claim in') }}</button>
-                            </form>
+                        <form class="d-inline" action="{{ route('ticket_free', ['ticket' => $ticket]) }}" method="POST">
+                            @method('PUT')
+                            @csrf
+                            <button type="submit">{{ __('Unclaim') }}</button>
+                        </form>
                     @endcan
                     @can( 'escalate', $ticket )
-                            <form class="d-inline" action="{{ route('ticket_escalate', ['ticket' => $ticket]) }}" method="POST">
-                                @method('PUT')
-                                @csrf
-                                <button type="submit">{{ __('Escaleer') }}</button>
-                            </form>
+                        <form class="d-inline" action="{{ route('ticket_escalate', ['ticket' => $ticket]) }}" method="POST">
+                            @method('PUT')
+                            @csrf
+                            <button type="submit">{{ __('Escalate') }}</button>
+                        </form>
                     @endcan
                     @can( 'deescalate', $ticket )
-                            <form class="d-inline" action="{{ route('ticket_deescalate', ['ticket' => $ticket]) }}" method="POST">
-                                @method('PUT')
-                                @csrf
-                                <button type="submit">{{ __('Deescaleer') }}</button>
-                            </form>
+                        <form class="d-inline" action="{{ route('ticket_deescalate', ['ticket' => $ticket]) }}" method="POST">
+                            @method('PUT')
+                            @csrf
+                            <button type="submit">{{ __('Deescalate') }}</button>
+                        </form>
+                    @endcan
+                    @can( 'delegate', $ticket )
+                        <button type="button"
+                            data-toggle="modal" data-target="#delegateModal">
+                            {{ __('Delegate') }}
+                        </button>
                     @endcan
                 </div>
 
@@ -143,5 +149,40 @@
             </div>
         </div>
     </div>
+
+    @can( 'delegate', $ticket )
+        <div class="modal fade" id="delegateModal" tabindex="-1" 
+            role="dialog" aria-labelledby="Delegate Ticket" aria-hidden="true"
+        >
+            <div class="modal-dialog modal-dialog-centered"
+                role="document"
+            >
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ __('Delegate ticket') }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="d-inline" action="{{ route('ticket_delegate', ['ticket' => $ticket]) }}" method="POST">
+                            @method('PUT')
+                            @csrf
+                            <select name="delegatable_user" id="delegatable_users">
+                                @foreach($delegatable_users as $delegatable_user)
+                                    <option value="{{ $delegatable_user->id }}">{{ $delegatable_user->name }}</option>
+                                @endforeach
+                            </select>
+                            <button type="submit">{{ __('Delegate') }}</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endcan
+
 </div>
 @endsection

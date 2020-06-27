@@ -10,6 +10,7 @@ use Validator;
 use App\Ticket;
 use App\Status;
 use App\Role;
+use App\User;
 
 class TicketController extends Controller
 {
@@ -112,7 +113,7 @@ class TicketController extends Controller
 
         $request->user()->submitted_tickets()->save($ticket);
 
-        return redirect()->route('ticket_index')->with('success', __('Ticket succesvol opgeslagen.'));
+        return redirect()->route('ticket_index')->with('success', __('Ticket successfully saved.'));
     }
     
     /**
@@ -122,9 +123,20 @@ class TicketController extends Controller
      */
     public function show(Ticket $ticket){
         $this->authorize('show', $ticket);
-        return view('ticket.show', ['ticket' => $ticket]);
+
+        $vars['ticket'] = $ticket;
+
+        $user = Auth::user();
+        if($user->can('delegate', $ticket)){
+            $vars['delegatable_users'] = $user->role->users->except($user->id);
+        }
+
+        return view('ticket.show', $vars);
     }
 
+    /**
+     * 
+     */
     public function close(Ticket $ticket){
 
         $this->authorize('close', $ticket);
@@ -135,9 +147,12 @@ class TicketController extends Controller
 
         $ticket->save();
 
-        return redirect()->back()->with('success', __('Ticket succesvol gesloten.'));
+        return redirect()->back()->with('success', __('Ticket successfully closed.'));
     }
 
+    /**
+     * 
+     */
     public function claim(Ticket $ticket){
 
         $this->authorize('claim', $ticket);
@@ -158,9 +173,12 @@ class TicketController extends Controller
 
         Auth::user()->assigned_tickets()->attach($ticket);
         
-        return redirect()->back()->with('success', __('Ticket succesvol geclaimd.'));
+        return redirect()->back()->with('success', __('Ticket successfully claimed.'));
     }
 
+    /**
+     * 
+     */
     public function free(Ticket $ticket){
 
         $this->authorize('free', $ticket);
@@ -181,9 +199,12 @@ class TicketController extends Controller
 
         Auth::user()->assigned_tickets()->detach($ticket);
         
-        return redirect()->back()->with('success', __('Ticket claim succesvol ingetrokken.'));
+        return redirect()->back()->with('success', __('Ticket successfully unclaimed.'));
     }
 
+    /**
+     * 
+     */
     public function escalate(Ticket $ticket){
 
         $this->authorize('escalate', $ticket);
@@ -194,9 +215,12 @@ class TicketController extends Controller
 
         $ticket->save();
         
-        return redirect()->back()->with('success', __('Ticket succesvol geescaleerd.'));
+        return redirect()->back()->with('success', __('Ticket successfully escalated.'));
     }
 
+    /**
+     * 
+     */
     public function deescalate(Ticket $ticket){
 
         $this->authorize('deescalate', $ticket);
@@ -209,7 +233,39 @@ class TicketController extends Controller
 
         Auth::user()->assigned_tickets()->detach($ticket);
         
-        return redirect()->back()->with('success', __('Ticket succesvol gedeescaleerd.'));
+        return redirect()->back()->with('success', __('Ticket successfully deescalated.'));
+    }
+
+    /**
+     * 
+     */
+    public function delegate(Request $request, Ticket $ticket){
+
+        $this->authorize('delegate', $ticket);
+
+        $user = Auth::user();
+
+        $request->validate([
+            'delegatable_user' => 'required|numeric',
+        ]);
+
+        if(User::where('id', $request->delegatable_user)->exists()){
+
+            $userToDelegateTo = User::find($request->delegatable_user);
+
+        } else {
+            return redirect()->back()->with('fail', __('Ticket not delegated. target user does not exist.'));
+        }
+
+        if( $user->is($userToDelegateTo) || $userToDelegateTo->role->isNot($user->role) ){
+            return redirect()->back()->with('fail', __('Ticket not delegated. target user does not have correct role or is yourself.'));
+        }
+
+        $ticket->assigned_users()->detach($user);
+        
+        $ticket->assigned_users()->attach($userToDelegateTo);
+
+        return redirect()->back()->with('success', __('success.delegated', ['name' => $userToDelegateTo->name]));
     }
 
 }

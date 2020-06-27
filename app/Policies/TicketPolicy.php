@@ -82,4 +82,16 @@ class TicketPolicy
 
         return $isSecond && $user->assigned_tickets->contains($ticket);
     }
+
+    public function delegate(User $user, Ticket $ticket){
+        $statusName = $ticket->status->name;
+        $roleName = $user->role->name;
+
+        $isFirst = $statusName === Status::FIRST_LINE_ASSIGNED && $roleName === Role::FIRST_HELPER;
+        $isSecond = $statusName === Status::SECOND_LINE_ASSIGNED && $roleName === Role::SECOND_HELPER;
+
+        $hasDelegatableUsers = $user->role->users->count() > 1;
+
+        return ($isFirst || $isSecond) && $user->assigned_tickets->contains($ticket) && $hasDelegatableUsers;
+    }
 }
