@@ -28,16 +28,9 @@
     "on": "op",
     "by": "door",
     "Submitted": "Ingezonden",
-    "Save": "Opslaan",
     "No tickets available...": "Geen tickets gevonden...",
-    "Close": "Sluit",
-    "Claim": "Opeisen",
-    "Unclaim": "Loslaten",
-    "Escalate": "Escaleer",
-    "De-escalate": "De-escaleer",
-    "Delegate": "Delegeer",
     "Delegate ticket": "Delegeer ticket",
-
+    
     "Comments": "Reacties",
     "No comments available...": "Geen reacties gevonden...",
     "New comment": "Nieuwe reactie",
@@ -46,7 +39,40 @@
     "You are not allowed to comment.": "Je bent niet bevoegd om een reactie te plaatsen.",
     "Only the submitting user or assigned assistant can comment.": "Alleen de ticket inzender of toegewezen helpers mogen reacties plaatsen.",
     "This ticket is closed, no new comments allowed.": "Dit ticket is gesloten, geen nieuwe reacties toegestaan.",
-
+    
     "Dashboard": "Overzicht",
-    "You are logged in!": "Je bent ingelogd!"
+    "You are logged in!": "Je bent ingelogd!",
+    
+    "Ticket not saved, invalid input.": "Ticket niet opgeslagen, opgegeven waarde niet valide.",
+    "Ticket successfully saved.": "Ticket succesvol opgeslagen.",
+    
+    "Save": "Opslaan",
+    "save_fail": "Ticket niet opgeslagen.",
+    "save_success": "Ticket succesvol opgeslagen.",
+
+    "Close": "Sluit",
+    "Ticket not closed.": "Ticket niet gesloten.",
+    "Ticket successfully closed.": "Ticket succesvol gesloten.",
+
+    "Claim": "Opeisen",
+    "Ticket not claimed.": "Ticket niet opgeëist.",
+    "Ticket successfully claimed.": "Ticket succesvol opgeëist.",
+
+    "Unclaim": "Loslaten",
+    "Ticket not unclaimed.": "Ticket niet losgelaten.",
+    "Ticket successfully unclaimed.": "Ticket succesvol losgelaten.",
+
+    "Escalate": "Escaleer",
+    "Ticket not escalated.": "Ticket niet geescaleerd.",
+    "Ticket successfully escalated.": "Ticket succesvol geescaleerd.",
+
+    "De-escalate": "De-escaleer",
+    "Ticket not deescalated.": "Ticket niet gede-escaleerd.",
+    "Ticket successfully deescalated.": "Ticket succesvol gede-escaleerd",
+
+    "Delegate": "Delegeer",
+    "Ticket not delegated. target user does not exist.": "Ticket niet gedelegeerd, aangewezen gebruiker bestaat niet.",
+    "Ticket not delegated. target user does not have correct role.": "Ticket niet gedelegeerd, aangewezen gebruiker heeft verkeerde rol.",
+    "Ticket not delegated. target user is self.": "Ticket niet gedelegeerd, aangewezen gebruiker is zichzelf.",
+    "Ticket successfully delegated to :name.": "Ticket succesvol gedelegeerd naar :name."
 }

@@ -179,11 +179,11 @@
                                     <option value="{{ $delegatable_user->id }}">{{ $delegatable_user->name }}</option>
                                 @endforeach
                             </select>
-                            <button type="submit">{{ __('Delegate') }}</button>
+                            <button class="btn btn-info" type="submit">{{ __('Delegate') }}</button>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">{{ __('Close') }}</button>
                     </div>
                 </div>
             </div>

@@ -99,7 +99,7 @@ class TicketController extends Controller
                 ->route('ticket_create')
                 ->withErrors($validator)
                 ->withInput()
-                ->with('fail', 'Ticket niet opgeslagen');
+                ->with('fail', __('Ticket not saved, invalid input.'));
         }
         
         $status = Status::where('name', Status::FIRST_LINE)->first();
@@ -267,7 +267,7 @@ class TicketController extends Controller
         
         $ticket->assigned_users()->attach($userToDelegateTo);
 
-        return redirect()->back()->with('success', __('success.delegated', ['name' => $userToDelegateTo->name]));
+        return redirect()->back()->with('success', __('Ticket successfully delegated to :name.', ['name' => $userToDelegateTo->name]));
     }
 
 }
