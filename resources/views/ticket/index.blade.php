@@ -4,10 +4,10 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card border-secondary px-2">
                 <div class="card-header">
                     <h3 class="card-title">
-                        All Tickets
+                        {{ __('My tickets') }}
                     </h3>
                     @if(session('success'))
                         <h6 class="card-subtitle alert alert-success">
@@ -16,26 +16,27 @@
                     @endif
                 </div>
                 @forelse ($tickets as $ticket)
-                    <div class="card">
+                    <div class="card border-dark my-3">
 
                         <div class="card-header">
-                            Submitting user: {{ $ticket->submitting_user->name }}
-                            <em>{{ $ticket->created_at->toFormattedDateString() }}</em>
+                            <h5 class="card-title">
+                                {{ __('Submitted by') }}: {{ $ticket->submitting_user->name }} {{ __('on') }} <em>{{ $ticket->created_at->toFormattedDateString() }}</em>
+                            </h5>
                         </div>
 
                         <div class="card-body">
                             <a href="{{ route('ticket_show', ['ticket' => $ticket]) }}">
                                 <h5 class="card-title">
-                                    {{ $ticket->title }}
+                                    {{ __('Title') }}: {{ $ticket->title }}
                                 </h5>
                             </a>
                             <p class="card-text">
-                                {!! nl2br(e($ticket->description)) !!}
+                                {{ __('Description') }}: {!! nl2br(e($ticket->description)) !!}
                             </p>
                         </div>
 
                         <div class="card-footer">
-                            {{ $ticket->status->description }}
+                            {{ __('Status') }}: {{ $ticket->status->description }}
                         </div>
 
                     </div>

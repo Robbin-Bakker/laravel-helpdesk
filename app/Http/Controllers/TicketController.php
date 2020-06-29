@@ -257,8 +257,10 @@ class TicketController extends Controller
             return redirect()->back()->with('fail', __('Ticket not delegated. target user does not exist.'));
         }
 
-        if( $user->is($userToDelegateTo) || $userToDelegateTo->role->isNot($user->role) ){
-            return redirect()->back()->with('fail', __('Ticket not delegated. target user does not have correct role or is yourself.'));
+        if($userToDelegateTo->role->isNot($user->role)){
+            return redirect()->back()->with('fail', __('Ticket not delegated. target user does not have correct role.'));
+        } else if($user->is($userToDelegateTo)){
+            return redirect()->back()->with('fail', __('Ticket not delegated. target user is self.'));
         }
 
         $ticket->assigned_users()->detach($user);

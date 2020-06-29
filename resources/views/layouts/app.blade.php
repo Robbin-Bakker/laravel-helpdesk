@@ -53,6 +53,19 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <!-- Language -->
+                        <li class="nav-item">
+                            <a class="btn @if(app()->getLocale() === 'en') btn-success @else btn-secondary @endif"
+                                href="{{ route('setlocale', 'en') }}">
+                                English
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn @if(app()->getLocale() === 'nl') btn-success @else btn-secondary @endif"
+                                href="{{ route('setlocale', 'nl') }}">
+                                Nederlands
+                            </a>
+                        </li>
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
