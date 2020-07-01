@@ -20,7 +20,7 @@
 
                         <div class="card-header">
                             <h5 class="card-title">
-                                {{ __('Submitted by') }}: {{ $ticket->submitting_user->name }} {{ __('on') }} <em>{{ $ticket->created_at->toFormattedDateString() }}</em>
+                                {{ __('Submitted') }} {{ __('by') }}: {{ $ticket->submitting_user->name }} {{ __('on') }} <em>{{ $ticket->created_at->toFormattedDateString() }}</em>
                             </h5>
                         </div>
 
